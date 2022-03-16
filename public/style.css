@@ -19,7 +19,6 @@ main{
 }
 
 
-
 .menu-selection{
     display:inline-block;
     padding:5px;
@@ -27,7 +26,7 @@ main{
     border-color: #292929;
     border-width: 2px;
     border-radius: 5px;
-    width:500px;
+    width:100%;
 }
 
 .menu-selection-icon{
@@ -38,10 +37,13 @@ main{
 
 .menu-selection-heading{
     margin:0;
-    text-decoration: underline;
 }
 .menu-selection-text{
-    vertical-align: middle;
+    vertical-align: top;
     display:inline-block;
-
+    overflow: hidden;
+    width:85%;
+}
+.menu-selection-desc{
+    font-size: 1.8vh;
 }
