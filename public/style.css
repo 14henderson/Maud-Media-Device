@@ -1,0 +1,47 @@
+body{
+    font-size: 2vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1a1a1a;
+    margin:0;
+    background-image: url('icons/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+main{
+    position:relative;
+    background-color: #ebebeb;
+    padding:50px;
+    margin:0;
+    width:60%;
+    left:20%;
+    right:20%;
+}
+
+
+
+.menu-selection{
+    display:inline-block;
+    padding:5px;
+    border-style: solid;
+    border-color: #292929;
+    border-width: 2px;
+    border-radius: 5px;
+    width:500px;
+}
+
+.menu-selection-icon{
+    vertical-align: middle;
+    width:70px;
+    height:70px;
+}
+
+.menu-selection-heading{
+    margin:0;
+    text-decoration: underline;
+}
+.menu-selection-text{
+    vertical-align: middle;
+    display:inline-block;
+
+}
