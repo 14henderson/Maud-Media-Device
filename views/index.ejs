@@ -23,7 +23,16 @@
         </div>
         <% } %>
 
+        <% for(let i=0; i<media.photos.length; i++) {%>
+            <div class="menu-selection">
+                <img src="<%= media.photos[i].albumPath+"\\"+media.photos[i].imagePaths[0] %>" class="menu-selection-icon">
+                <div class="menu-selection-text">
+                    <h3 class="menu-selection-heading"><%= media.photos[i].title %></h3>
+                    <span class="menu-selection-desc">A collection of photos from a recent trip.</span>
+                </div>
+            </div>
+        <% } %>
+
     </main>
-<%= media.video %>
 </body>  
 </html>
