@@ -8,24 +8,36 @@ const port = process.env.PORT || 8000;
 
 app.use(express.static(path.join(__dirname, '/public/')));
 
+const media = {
+    'photos':[],
+    'video':[]
+};
 
-function getMediaData(){
-  fs.readdir(videosDir, (err, files) => {
-        console.log(files);
+function populateMedia(){
+    fs.readdir(videosDir, (err, files) => {
+        files.forEach(function (filename) {
+            let data = '';
+            try{
+                data = fs.readFileSync(path.join(__dirname, '/public/descriptions/', path.parse(filename).name+'.txt'), 'utf8');
+            } catch (err) {}
+            
+            media.video.push({
+                'title':path.parse(filename).name,
+                'subtitle':data
+            });
+        });
     });
 }
 
 
 
-
-
+populateMedia();
 
 
 
 
 app.get('/', function(req, res){
-  getMediaData();
-  res.render('index', {test:'hello world!'});
+    res.render('index', {'media':media});
 });
 
 

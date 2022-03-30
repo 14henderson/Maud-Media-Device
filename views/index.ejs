@@ -7,20 +7,23 @@
    <script src="index.js" defer></script>
 </head>  
 <body>
-   <main>
-      <h1>Wherry Maud Trust Pop Up Museum</h1>
-      <span>Something something click button to watch video something something</span>
-      <hr>
-      <h2 style="text-align: center;">Click to Watch</h2>
-      <div class="menu-selection">
-         <img src="icons/video1.PNG" class="menu-selection-icon">
-         <div class="menu-selection-text">
-            <h3 class="menu-selection-heading">Trip to Wroxham Broad</h3>
-            <span class="menu-selection-desc">Some text about the video goes hereSome text about the video goes hereSome te</span>
-         </div>
-         
-      </div>
-   </main>
- <%= test %>
+    <main>
+        <h1>Wherry Maud Trust Pop Up Museum</h1>
+        <span>Something something click button to watch video something something</span>
+        <hr>
+        <h2 style="text-align: center;">Click to Watch</h2>
+
+        <% for(let i=0; i<media.video.length; i++) {%>
+        <div class="menu-selection">
+            <img src="icons/video1.PNG" class="menu-selection-icon">
+            <div class="menu-selection-text">
+                <h3 class="menu-selection-heading"><%= media.video[i].title %></h3>
+                <span class="menu-selection-desc"><%= media.video[i].subtitle %></span>
+            </div>
+        </div>
+        <% } %>
+
+    </main>
+<%= media.video %>
 </body>  
 </html>
