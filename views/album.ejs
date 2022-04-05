@@ -1,0 +1,32 @@
+<!doctype html>  
+<html lang="en">  
+<head>  
+<title>Wherry Maud Trust</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="/album.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+</head>
+
+<script defer>
+const data = <%- JSON.stringify(data) %>;
+var currentImage = 0;
+
+function nextImage(){
+    currentImage += 1;
+    if( currentImage >= data.imagePaths.length) currentImage = 0;
+
+    let newPath = "/"+data.albumPath+"/"+data.imagePaths[currentImage];
+    console.log(newPath);
+    document.getElementById("albumImage").src = newPath;
+    document.getElementById("annotation").innerHTML = `Picture ${currentImage+1} of ${data.imagePaths.length}. '${data.imagePaths[currentImage]}'`;
+
+    setTimeout(nextImage, 5000);
+}
+
+</script>
+
+<body onload="nextImage();">
+    <img id="albumImage" src="">
+    <span id="annotation">Test</span>
+</body>  
+</html>

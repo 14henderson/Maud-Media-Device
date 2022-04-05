@@ -6,32 +6,77 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
    <script src="index.js" defer></script>
 </head>  
-<body>
+<script>
+
+var selected = 0;
+const media = <%- JSON.stringify(media) %>;
+console.log(media);
+
+function selectInitial(){
+    document.getElementById(media[0].title).style.borderColor = "#007d1b";
+    document.getElementById(media[0].title).style.borderWidth = "4px";
+}
+
+
+function selectNext(){
+    document.getElementById(media[selected].title).style.borderColor = "#292929";
+    document.getElementById(media[selected].title).style.borderWidth = "2px";
+    selected += 1;
+    if(selected >= media.length) selected = 0;
+    document.getElementById(media[selected].title).style.borderColor = "#007d1b";
+    document.getElementById(media[selected].title).style.borderWidth = "4px";
+}
+function selectPrevious(){
+    document.getElementById(media[selected].title).style.borderColor = "#292929";
+    document.getElementById(media[selected].title).style.borderWidth = "2px";
+    selected -= 1;
+    if(selected < 0) selected = media.length - 1;
+    document.getElementById(media[selected].title).style.borderColor = "#007d1b";
+    document.getElementById(media[selected].title).style.borderWidth = "4px";
+}
+
+function select(){
+    if(media[selected].type == 'video'){
+        document.location = media[selected].filename;
+    }else if(media[selected].type == 'album'){
+        document.location = media[selected].albumPath;
+    }
+}
+
+document.addEventListener('keydown', function(e){
+    if(e.code == 'ArrowDown') selectNext();
+    else if(e.code == 'ArrowUp') selectPrevious();
+    else if(e.code == 'Enter') select();
+});
+
+
+</script>
+<body onload="selectInitial();">
     <main>
         <h1>Wherry Maud Trust Pop Up Museum</h1>
-        <span>Something something click button to watch video something something</span>
+        <span>Maud is a very special wherry, the last of the typical clinker-built trading wherries to sail on the Norfolk Broads and Rivers. She has had a chequered history, starting her working life in 1899 as one of a small fleet of private trading wherries owned by a director of Jewson, timber merchants in Great Yarmouth. In her early years she was photographed being used by her proud owner to host a party of friends to watch a regatta. At the end of her working life she was no longer a smart, well-painted vessel as she was in use carrying dredgings for the river contractors May Gurney.</span></br></br>
+        <span>Below we have a selection of videos and photo albums for your viewing pleasure. Use the controller-box on the table to navigate and take a look!</span>
         <hr>
-        <h2 style="text-align: center;">Click to Watch</h2>
+        <!--h2 style="text-align: center;">Click to Watch</h2-->
 
-        <% for(let i=0; i<media.video.length; i++) {%>
-        <div class="menu-selection">
-            <img src="icons/video1.PNG" class="menu-selection-icon">
-            <div class="menu-selection-text">
-                <h3 class="menu-selection-heading"><%= media.video[i].title %></h3>
-                <span class="menu-selection-desc"><%= media.video[i].subtitle %></span>
-            </div>
-        </div>
-        <% } %>
-
-        <% for(let i=0; i<media.photos.length; i++) {%>
-            <div class="menu-selection">
-                <img src="<%= media.photos[i].albumPath+"\\"+media.photos[i].imagePaths[0] %>" class="menu-selection-icon">
+        <% media.forEach((item) => { 
+            if(item.type == 'video') { %>
+            <div class="menu-selection" id="<%- item.title %>">
+                <img src="icons/video1.PNG" class="menu-selection-icon">
                 <div class="menu-selection-text">
-                    <h3 class="menu-selection-heading"><%= media.photos[i].title %></h3>
+                    <h3 class="menu-selection-heading"><%= item.title %></h3>
+                    <span class="menu-selection-desc"><%= item.subtitle %></span>
+                </div>
+            </div>
+        <% } else if(item.type == 'album') { %>
+            <div class="menu-selection" id="<%- item.title %>">
+                <img src="<%= item.albumPath+'/'+item.imagePaths[0] %>" class="menu-selection-icon">
+                <div class="menu-selection-text">
+                    <h3 class="menu-selection-heading"><%= item.title %></h3>
                     <span class="menu-selection-desc">A collection of photos from a recent trip.</span>
                 </div>
             </div>
-        <% } %>
+        <%}}); %>
 
     </main>
 </body>  
