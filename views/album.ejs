@@ -19,7 +19,7 @@ function nextImage(){
     let newPath = "/"+data.albumPath+"/"+data.imagePaths[currentImage];
     console.log(newPath);
     document.getElementById(data.imagePaths[currentImage]).style.display = "block";
-    document.getElementById("annotation").innerHTML = `Picture ${currentImage+1} of ${data.imagePaths.length}. '${data.imagePaths[currentImage]}'`;
+    document.getElementById("annotation").innerHTML = `Picture ${currentImage+1} of ${data.imagePaths.length}. '${data.imagePaths[currentImage].split(".")[0]}'`;
 
     setTimeout(nextImage, 5000);
 }
