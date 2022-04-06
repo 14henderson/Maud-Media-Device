@@ -27,7 +27,8 @@ function populateMedia(){
                 'type':'video',
                 'title':path.parse(filename).name,
                 'subtitle':data,
-                'filename': path.normalize(path.join('videos/', filename))
+                'videoPath': path.normalize(path.join('videopath', path.parse(filename).name)),
+                'filename': path.normalize(path.join('videos', filename))
             };
         });
     });
@@ -60,12 +61,19 @@ app.get('/albums/:albumName', function(req, res){
     let albumName = req.params.albumName;
     
     let albumData = media.photos[albumName];
-    console.log(albumData);
+    //console.log(albumData);
     res.render('album', {'data':albumData});
+});
+
+app.get('/videopath/:videoName', function(req, res){
+    let videoName = req.params.videoName;
+    let videoData = media.video[videoName];
+    console.log(videoData);
+    res.render('video', {'data':videoData});
 })
 
 
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-})
+});

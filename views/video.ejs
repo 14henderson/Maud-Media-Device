@@ -1,0 +1,28 @@
+<!doctype html>  
+<html lang="en">  
+<head>  
+<title>Wherry Maud Trust</title>
+   <!--link rel="stylesheet" href="/style.css"-->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+</head>
+
+<style>
+    body{
+        background-color: black;
+    }
+    #video{
+        height:100vh;
+        margin:auto;
+        display: block;
+    }
+</style>
+<script>
+    function playVideo(){
+        document.getElementById("video").play();
+    }
+</script>
+
+<body>
+    <video id="video" src="/<%= data.filename %>" preload controls oncanplaythrough="playVideo();"></video>
+</body>  
+</html>

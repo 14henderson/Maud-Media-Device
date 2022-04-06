@@ -37,7 +37,7 @@ function selectPrevious(){
 
 function select(){
     if(media[selected].type == 'video'){
-        document.location = media[selected].filename;
+        document.location = media[selected].videoPath;
     }else if(media[selected].type == 'album'){
         document.location = media[selected].albumPath;
     }
