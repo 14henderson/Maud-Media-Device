@@ -12,12 +12,13 @@ const data = <%- JSON.stringify(data) %>;
 var currentImage = -1;
 
 function nextImage(){
+    if(currentImage >= 0) document.getElementById(data.imagePaths[currentImage]).style.display = "none";
     currentImage += 1;
     if( currentImage >= data.imagePaths.length) currentImage = 0;
 
     let newPath = "/"+data.albumPath+"/"+data.imagePaths[currentImage];
     console.log(newPath);
-    document.getElementById("albumImage").src = newPath;
+    document.getElementById(data.imagePaths[currentImage]).style.display = "block";
     document.getElementById("annotation").innerHTML = `Picture ${currentImage+1} of ${data.imagePaths.length}. '${data.imagePaths[currentImage]}'`;
 
     setTimeout(nextImage, 5000);
@@ -26,7 +27,10 @@ function nextImage(){
 </script>
 
 <body onload="nextImage();">
-    <img id="albumImage" src="">
+    <% data.imagePaths.forEach((item) => { %>
+        <img class="albumImage" id="<%= item %>" src="/<%= data.albumPath %>/<%= item %>" style="display:none;">
+    <% }) %>
+    
     <span id="annotation">Test</span>
 </body>  
 </html>
