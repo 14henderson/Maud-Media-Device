@@ -24,6 +24,14 @@ function nextImage(){
     setTimeout(nextImage, 5000);
 }
 
+
+document.addEventListener('keydown', function(e){
+    if(e.code == 'Backspace'){
+        document.location = "/";
+    }
+});
+
+
 </script>
 
 <body onload="nextImage();">
@@ -31,6 +39,6 @@ function nextImage(){
         <img class="albumImage" id="<%= item %>" src="/<%= data.albumPath %>/<%= item %>" style="display:none;">
     <% }) %>
     
-    <span id="annotation">Test</span>
+    <span id="annotation"></span>
 </body>  
 </html>

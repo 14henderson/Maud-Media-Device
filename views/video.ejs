@@ -17,9 +17,16 @@
     }
 </style>
 <script>
-    function playVideo(){
-        document.getElementById("video").play();
+function playVideo(){
+    document.getElementById("video").play();
+}
+
+document.addEventListener('keydown', function(e){
+    if(e.code == 'Backspace'){
+        document.location = "/";
     }
+});
+
 </script>
 
 <body>
