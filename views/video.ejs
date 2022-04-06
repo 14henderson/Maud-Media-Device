@@ -11,7 +11,7 @@
         background-color: black;
     }
     #video{
-        height:100vh;
+        height:95vh;
         margin:auto;
         display: block;
     }
@@ -23,6 +23,6 @@
 </script>
 
 <body>
-    <video id="video" src="/<%= data.filename %>" preload controls oncanplaythrough="playVideo();"></video>
+    <video id="video" src="/<%= data.filename %>" preload oncanplaythrough="playVideo();"></video>
 </body>  
 </html>
