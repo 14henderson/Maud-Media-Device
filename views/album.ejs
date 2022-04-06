@@ -15,8 +15,7 @@ function nextImage(){
     currentImage += 1;
     if( currentImage >= data.imagePaths.length) currentImage = 0;
 
-    //let newPath = "/"+data.albumPath+"/"+data.imagePaths[currentImage];
-    let newPath = "C:/Users/Niklas Henderson/Documents/GitHub/Maud-Media-Device/public/albums/Restoring Maud/" + data.imagePaths[currentImage];
+    let newPath = "/"+data.albumPath+"/"+data.imagePaths[currentImage];
     console.log(newPath);
     document.getElementById("albumImage").src = newPath;
     document.getElementById("annotation").innerHTML = `Picture ${currentImage+1} of ${data.imagePaths.length}. '${data.imagePaths[currentImage]}'`;
