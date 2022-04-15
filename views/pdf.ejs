@@ -1,0 +1,53 @@
+<!doctype html>  
+<html lang="en">  
+<head>  
+<title>Wherry Maud Trust</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+</head>
+<style>
+    body{
+        margin:0;
+        height:100vh;
+        width:100vw;
+        background-color: black;
+    }
+    #pdfViewer{
+        display:block;
+        margin:auto;
+        border:none;
+    }
+</style>
+
+<script defer>
+    const data = <%- JSON.stringify(data) %>;
+    var currentImage = 0;
+    
+    function nextImage(){
+        currentImage += 1;
+        let newPath = "/"+data.filename+"#page="+currentImage+"&zoom=80";
+        console.log("New Path: ", newPath);
+        document.getElementById("pdfViewer").src = newPath;
+        document.getElementById("pdfViewer").contentWindow.location.reload();
+        
+        setTimeout(nextImage, 20000);
+    }
+    
+    
+    document.addEventListener('keydown', function(e){
+        if(e.code == 'Backspace'){
+            document.location = "/";
+        }
+    });
+    
+    function focus(){
+        document.getElementById("pdfViewer").contentWindow.document.body.embed.focus();
+    }
+</script>
+
+<body onload="nextImage()">
+    <!--embed id="pdfViewer" src="/<%- data.filename %>" height="98%" width="98%" /-->
+    <!--object id="pdfViewer" type="application/pdf" data="/<%- data.filename %>" height="98%" width="98%"></object-->
+    <iframe id="pdfViewer" src="/<%- data.filename %>#zoom=80"  scrolling="auto" height="98%" width="98%" ></iframe>
+
+</body>  
+</html>

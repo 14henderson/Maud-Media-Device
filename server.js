@@ -5,28 +5,25 @@ const fs = require('fs');
 const path = require('path');
 const videosDir = './public/videos';
 const picturesDir = './public/albums';
+const pdfsDir = './public/pdfs';
 const port = process.env.PORT || 8000;
 
 app.use(express.static(path.join(__dirname, '/public/')));
 
 const media = {
     'photos':{},
-    'video':{}
+    'video':{},
+    'pdfs':{}
 };
 
 function populateMedia(){
     //Get video name and description
     fs.readdir(videosDir, (err, files) => {
         files.forEach(function (filename) {
-            let data = '';
-            try{
-                data = fs.readFileSync(path.join(__dirname, '/public/descriptions/', path.parse(filename).name+'.txt'), 'utf8');
-            } catch (err) {}
-            
             media.video[path.parse(filename).name] = {
                 'type':'video',
                 'title':path.parse(filename).name,
-                'subtitle':data,
+                'subtitle':"N/A",
                 'videoPath': path.normalize(path.join('videopath', path.parse(filename).name)),
                 'filename': path.normalize(path.join('videos', filename))
             };
@@ -47,13 +44,26 @@ function populateMedia(){
             });
         });
     });
+
+    fs.readdir(path.join(__dirname, pdfsDir), function(error, files){
+        files.forEach((fName) => {
+            parsedFilename = path.parse(fName).name;
+            media.pdfs[parsedFilename] = {
+                'type':'pdf',
+                'title': parsedFilename,
+                'pdfPath':path.normalize(path.join('pdfpath', parsedFilename)),
+                'filename':path.normalize(path.join('pdfs', fName))
+            }
+        });
+        console.log(media.pdfs);
+    });
 }
 
 populateMedia();
 
 
 app.get('/', function(req, res){
-    let data = Object.values(media.photos).concat(Object.values(media.video));
+    let data = Object.values(media.photos).concat(Object.values(media.video)).concat(Object.values(media.pdfs));
     res.render('index', {'media':data});
 });
 
@@ -70,7 +80,14 @@ app.get('/videopath/:videoName', function(req, res){
     let videoData = media.video[videoName];
     console.log(videoData);
     res.render('video', {'data':videoData});
-})
+});
+
+app.get('/pdfpath/:pdfName', function(req, res) {
+    let pdfName = req.params.pdfName;
+    let pdfData = media.pdfs[pdfName];
+    console.log(pdfData);
+    res.render('pdf', {'data':pdfData});
+});
 
 
 

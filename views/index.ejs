@@ -22,7 +22,7 @@ function selectNext(){
     document.getElementById(media[selected].title).style.borderColor = "#292929";
     document.getElementById(media[selected].title).style.borderWidth = "2px";
     selected += 1;
-    if(selected >= media.length) selected = 0;
+    if(selected >= media.length) selected = media.length - 1;
     document.getElementById(media[selected].title).style.borderColor = "#007d1b";
     document.getElementById(media[selected].title).style.borderWidth = "4px";
 }
@@ -30,7 +30,7 @@ function selectPrevious(){
     document.getElementById(media[selected].title).style.borderColor = "#292929";
     document.getElementById(media[selected].title).style.borderWidth = "2px";
     selected -= 1;
-    if(selected < 0) selected = media.length - 1;
+    if(selected < 0) selected = 0;
     document.getElementById(media[selected].title).style.borderColor = "#007d1b";
     document.getElementById(media[selected].title).style.borderWidth = "4px";
 }
@@ -40,6 +40,8 @@ function select(){
         document.location = media[selected].videoPath;
     }else if(media[selected].type == 'album'){
         document.location = media[selected].albumPath;
+    }else if(media[selected].type == 'pdf'){
+        document.location = media[selected].pdfPath;
     }
 }
 
@@ -65,7 +67,7 @@ document.addEventListener('keydown', function(e){
                 <img src="icons/video1.PNG" class="menu-selection-icon">
                 <div class="menu-selection-text">
                     <h3 class="menu-selection-heading"><%= item.title %></h3>
-                    <span class="menu-selection-desc"><%= item.subtitle %></span>
+                    <span class="menu-selection-desc">A video from Maud on the Norfolk Broads.</span>
                 </div>
             </div>
         <% } else if(item.type == 'album') { %>
@@ -74,6 +76,14 @@ document.addEventListener('keydown', function(e){
                 <div class="menu-selection-text">
                     <h3 class="menu-selection-heading"><%= item.title %></h3>
                     <span class="menu-selection-desc">A collection of photos from a recent trip.</span>
+                </div>
+            </div>
+        <% } else if(item.type == 'pdf') { %>
+            <div class="menu-selection" id="<%- item.title %>">
+                <img src="icons/maud-old-icon.PNG" class="menu-selection-icon">
+                <div class="menu-selection-text">
+                    <h3 class="menu-selection-heading"><%= item.title %></h3>
+                    <span class="menu-selection-desc">A PDF document with pictures and information on Maud's history.</span>
                 </div>
             </div>
         <%}}); %>
